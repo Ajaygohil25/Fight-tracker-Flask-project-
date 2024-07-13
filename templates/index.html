@@ -1,0 +1,54 @@
+{% extends 'base_template.html' %}
+{% block body %}
+
+<form method="post" action="/">
+      <div class="container my-4">
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Add title </label>
+            <input type="text" name="title" class="form-control" id="title" placeholder="From where it is begin">
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Description of Fight</label>
+            <textarea class="form-control" name="desc" id="Description" rows="3" placeholder="Give a bit information"></textarea>
+          </div>
+          <div class="col-6 mx-auto">
+          <button type="submit"  class="btn btn-outline-danger">Submit</button></div>
+      </div>
+    </form>
+
+    <div class="alert alert-dark text-center" role="alert">
+      Max Streak is {{max_streak}} <img style="height: 20px; width: 20px;" src="static/fire_icon.png" class="img-fluid" alt="...">
+    </div>
+      <div class="container my-4">
+        {% if allfights|length ==0 %}
+        <p> no fights yet !</p>
+        {% else %}
+        <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Streak</th>
+                    <th scope="col">Update</th>
+                    <th scope="col">Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                
+                  {% for f in allfights %}
+                  <tr>
+                    <th scope="row">{{f.id}}</th>
+                    <td>{{f.title}}</td>
+                    <td>{{f.desc}}</td>
+                    <td>{{f.streak}}</td>
+                    <td><a href="/update/{{f.id}}"><button type="button" class="btn btn-dark">Update</button></a></td>
+                    <td><a href="/delete/{{f.id}}"> <button type="button"  class="btn btn-dark">Delete</button></a></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+          </table>
+          {% endif %}
+      </div>
+
+      {% endblock body  %}
